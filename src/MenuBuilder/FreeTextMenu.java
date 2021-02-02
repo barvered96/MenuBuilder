@@ -5,13 +5,14 @@ import java.util.Map;
 
 class FreeTextMenu extends Menu {
     private Map<String, MenuItem> menu;
+    private StringCaster stringCaster;
 
     public FreeTextMenu(String displayName, String title) {
-        this.displayName = displayName;
-        this.title = title;
+        super(displayName, title);
         this.menu = new LinkedHashMap<>();
         this.menuDisplayer = new TextMenuDisplayer();
-        this.inputScanner = new TextScanner();
+        this.stringCaster = new StringCaster();
+        this.errorPrinter = new TextErrorPrinter();
     }
 
     @Override
@@ -22,7 +23,19 @@ class FreeTextMenu extends Menu {
     @Override
     public void ExecuteAction() {
         this.menuDisplayer.print(this.title, this.menu);
-        String selection = (String)this.inputScanner.getInput();
-        menu.get(selection).ExecuteAction();
+        String selection = this.stringCaster.cast(this.inputScanner.getInput());
+        if (selection != "") {
+            if (this.inputValidator.validate(selection, menu) == "") {
+                menu.get(selection).ExecuteAction();
+            }
+            else {
+                this.errorPrinter.printBadInput();
+                this.ExecuteAction();
+            }
+        }
+        else {
+            this.errorPrinter.printUnMatchedInput();
+            this.ExecuteAction();
+        }
     }
 }

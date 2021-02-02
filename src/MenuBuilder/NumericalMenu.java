@@ -2,19 +2,19 @@ package MenuBuilder;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 class NumericalMenu extends Menu {
     private int numOptions;
+    private IntCaster intCaster;
     private Map<Integer, MenuItem> menu;
 
     public NumericalMenu(String displayName, String title) {
+        super(displayName, title);
         this.numOptions = 0;
-        this.displayName = displayName;
-        this.title = title;
         this.menu = new LinkedHashMap<>();
         this.menuDisplayer = new NumericalMenuDisplayer();
-        this.inputScanner = new IntScanner();
+        this.intCaster = new IntCaster();
+        this.errorPrinter = new NumericalErrorPrinter();
     }
 
     @Override
@@ -25,7 +25,20 @@ class NumericalMenu extends Menu {
     @Override
     public void ExecuteAction() {
         this.menuDisplayer.print(this.title, menu);
-        Integer selection = (Integer)this.inputScanner.getInput();
-        menu.get(selection).ExecuteAction();
+        Integer selection = this.intCaster.cast(this.inputScanner.getInput());
+        if (selection != -1) {
+            if (this.inputValidator.validate(selection, menu) == "") {
+                menu.get(selection).ExecuteAction();
+            }
+            else {
+                this.errorPrinter.printBadInput();
+                this.ExecuteAction();
+            }
+        }
+        else {
+            this.errorPrinter.printUnMatchedInput();
+            this.ExecuteAction();
+        }
+
     }
 }
