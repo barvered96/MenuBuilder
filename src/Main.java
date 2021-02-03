@@ -20,6 +20,7 @@ public class Main {
         insideMenu.addToMenu(printInput);
         insideMenu.addToMenu(exitItem);
         menu.addToMenu(insideMenu);
+
         menu.ExecuteAction();
     }
 }
