@@ -8,6 +8,11 @@ public class PrintFunction extends ReturnActionItem {
         super(parentMenu, displayName);
         this.text = text;
     }
+
+    protected PrintFunction(Menu parentMenu, String displayName) {
+        super(parentMenu, displayName);
+    }
+
     @Override
     public void ExecuteAction() {
         System.out.println(text);

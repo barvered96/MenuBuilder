@@ -1,5 +1,6 @@
 import MenuBuilder.MenuItems.ActionItems.ExitActionItem;
 import MenuBuilder.MenuItems.ActionItems.PrintFunction;
+import MenuBuilder.MenuItems.ActionItems.PrintInputFunction;
 import MenuBuilder.MenuItems.ActionItems.ReturnActionItem;
 import MenuBuilder.MenuItems.Menus.FreeTextMenu;
 import MenuBuilder.MenuItems.Menus.Interface.Menu;
@@ -12,9 +13,11 @@ public class Main {
         Menu insideMenu = new NumericalMenu("Secondary Menu", "Whats up?");
         MenuItem returnItem = new ReturnActionItem( menu, "Return to Main Menu");
         MenuItem exitItem = new ExitActionItem( "Exit");
-        MenuItem printItem = new PrintFunction(insideMenu,"Print yed", "Wallak");
+        MenuItem printItem = new PrintFunction(insideMenu,"Print hi", "hi");
+        MenuItem printInput = new PrintInputFunction(insideMenu,"Prints your input");
         insideMenu.addToMenu(printItem);
         insideMenu.addToMenu(returnItem);
+        insideMenu.addToMenu(printInput);
         insideMenu.addToMenu(exitItem);
         menu.addToMenu(insideMenu);
         menu.ExecuteAction();
