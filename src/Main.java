@@ -12,7 +12,7 @@ public class Main {
         Menu menu = new FreeTextMenu("OutsideMenu", "Main Menu");
         Menu insideMenu = new NumericalMenu("Secondary Menu", "Whats up?");
         MenuItem returnItem = new ReturnActionItem( menu, "Return to Main Menu");
-        MenuItem exitItem = new ExitActionItem( "Exit");
+        MenuItem exitItem = new ExitActionItem("Exit");
         MenuItem printItem = new PrintFunction(insideMenu,"Print hi", "hi");
         MenuItem printInput = new PrintInputFunction(insideMenu,"Prints your input");
         insideMenu.addToMenu(printItem);

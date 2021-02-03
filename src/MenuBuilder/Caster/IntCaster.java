@@ -9,7 +9,7 @@ public class IntCaster implements ObjectCaster {
             return Integer.parseInt((String)input);
         }
         catch (Exception e) {
-            return -1;
+            return null;
         }
     }
 }

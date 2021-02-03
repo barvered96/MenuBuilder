@@ -4,7 +4,6 @@ import MenuBuilder.Caster.StringCaster;
 import MenuBuilder.Displayer.TextMenuDisplayer;
 import MenuBuilder.MenuItems.Menus.Interface.Menu;
 import MenuBuilder.MenuItems.Interface.MenuItem;
-import MenuBuilder.Printer.TextErrorPrinter;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -18,7 +17,6 @@ public class FreeTextMenu extends Menu {
         this.menu = new LinkedHashMap<>();
         this.menuDisplayer = new TextMenuDisplayer();
         this.stringCaster = new StringCaster();
-        this.errorPrinter = new TextErrorPrinter();
     }
 
     @Override
@@ -31,16 +29,17 @@ public class FreeTextMenu extends Menu {
         this.menuDisplayer.print(this.title, this.menu);
         String selection = this.stringCaster.cast(this.inputScanner.getInput());
         if (selection != "") {
-            if (this.inputValidator.validate(selection, menu) == "") {
+            String errorMsg = this.inputValidator.validate(selection, menu);
+            if (errorMsg == "") {
                 menu.get(selection).ExecuteAction();
             }
             else {
-                this.errorPrinter.printBadInput();
+                this.errorPrinter.printBadInput(errorMsg);
                 this.ExecuteAction();
             }
         }
         else {
-            this.errorPrinter.printUnMatchedInput();
+            this.errorPrinter.printUnMatchedInput("Text");
             this.ExecuteAction();
         }
     }

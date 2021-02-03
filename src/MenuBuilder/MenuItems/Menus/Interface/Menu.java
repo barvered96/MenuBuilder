@@ -1,7 +1,7 @@
 package MenuBuilder.MenuItems.Menus.Interface;
 
 import MenuBuilder.MenuItems.Interface.MenuItem;
-import MenuBuilder.Printer.Interface.ErrorPrinter;
+import MenuBuilder.Printer.ErrorPrinter;
 import MenuBuilder.Scanner.InputScanner;
 import MenuBuilder.Validator.InputValidator;
 import MenuBuilder.Displayer.Interface.MenuDisplayer;
@@ -16,6 +16,7 @@ public abstract class Menu implements MenuItem {
     public Menu(String displayName, String title) {
         this.displayName = displayName;
         this.title = title;
+        this.errorPrinter = new ErrorPrinter();
         this.inputValidator = new InputValidator();
         this.inputScanner = new InputScanner();
     }

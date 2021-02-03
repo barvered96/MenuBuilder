@@ -4,7 +4,6 @@ import MenuBuilder.Caster.IntCaster;
 import MenuBuilder.Displayer.NumericalMenuDisplayer;
 import MenuBuilder.MenuItems.Menus.Interface.Menu;
 import MenuBuilder.MenuItems.Interface.MenuItem;
-import MenuBuilder.Printer.NumericalErrorPrinter;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -20,7 +19,6 @@ public class NumericalMenu extends Menu {
         this.menu = new LinkedHashMap<>();
         this.menuDisplayer = new NumericalMenuDisplayer();
         this.intCaster = new IntCaster();
-        this.errorPrinter = new NumericalErrorPrinter();
     }
 
     @Override
@@ -33,18 +31,18 @@ public class NumericalMenu extends Menu {
         this.menuDisplayer.print(this.title, menu);
         Integer selection = this.intCaster.cast(this.inputScanner.getInput());
         if (selection != -1) {
-            if (this.inputValidator.validate(selection, menu) == "") {
+            String errorMsg = this.inputValidator.validate(selection, menu);
+            if (errorMsg == "") {
                 menu.get(selection).ExecuteAction();
             }
             else {
-                this.errorPrinter.printBadInput();
+                this.errorPrinter.printBadInput(errorMsg);
                 this.ExecuteAction();
             }
         }
         else {
-            this.errorPrinter.printUnMatchedInput();
+            this.errorPrinter.printUnMatchedInput("Numerical");
             this.ExecuteAction();
         }
-
     }
 }

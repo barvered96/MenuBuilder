@@ -8,7 +8,6 @@ public class PrintInputFunction extends PrintFunction {
     InputScanner inputScanner;
     StringCaster stringCaster;
 
-
     public PrintInputFunction(Menu parentMenu, String displayName) {
         super(parentMenu, displayName);
         this.inputScanner = new InputScanner();
