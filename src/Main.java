@@ -1,12 +1,17 @@
-import MenuBuilder.*;
+import MenuBuilder.MenuItems.ActionItems.ExitActionItem;
+import MenuBuilder.MenuItems.ActionItems.PrintFunction;
+import MenuBuilder.MenuItems.ActionItems.ReturnActionItem;
+import MenuBuilder.MenuItems.Menus.FreeTextMenu;
+import MenuBuilder.MenuItems.Menus.Interface.Menu;
+import MenuBuilder.MenuItems.Interface.MenuItem;
+import MenuBuilder.MenuItems.Menus.NumericalMenu;
 
 public class Main {
     public static void main(String args[]) {
-        MenuItemFactory factory = new MenuItemFactory();
-        Menu menu = factory.getMenu("FreeText", "OutsideMenu", "Main Menu");
-        Menu insideMenu = factory.getMenu("Numerical", "Secondary Menu", "Whats up?");
-        MenuItem returnItem = factory.getItem("Return", "Return to Main Menu", menu);
-        MenuItem exitItem = factory.getItem("Exit", "Exit", insideMenu);
+        Menu menu = new FreeTextMenu("OutsideMenu", "Main Menu");
+        Menu insideMenu = new NumericalMenu("Secondary Menu", "Whats up?");
+        MenuItem returnItem = new ReturnActionItem( menu, "Return to Main Menu");
+        MenuItem exitItem = new ExitActionItem( "Exit");
         MenuItem printItem = new PrintFunction(insideMenu,"Print yed", "Wallak");
         insideMenu.addToMenu(printItem);
         insideMenu.addToMenu(returnItem);
